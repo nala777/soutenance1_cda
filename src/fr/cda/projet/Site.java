@@ -22,7 +22,6 @@ public class Site
         commandes = new ArrayList<Commande>();
 
         // lecture du fichier data/Produits.txt
-
         //  pour chaque ligne on cree un Produit que l'on ajoute a stock
         initialiserStock("data/Produits.txt");
 
@@ -59,27 +58,32 @@ public class Site
         for(Commande commande : commandes) {
             res = res + commande.toString() + "\n";
         }
-//        res=res+"Les commandes sont concatenes dans une chaine";
+        res=res+"Les commandes sont concatenes dans une chaine";
 
         return res;
     }
+
 
     // Methode qui retourne sous la forme d'une chaine de caractere
     //  une commande
     //
     public String listerCommande(int numero)
     {
-        String res="Cette methode n'est pas codee\n";
-        res=res+"Numero de commande : "+numero+"\n";
-        res=res+"Elle doit retourner le contenu d'une commande\n";
-        
+        String res = "La commande n'a pas été trouvé";
+
+        for(Commande commande : commandes){
+
+            if(commande.getNumero() == numero){
+                res= commande.toString()+"\n";
+            }
+        }
+
         return res;
     }
 
 
 
     // Chargement du fichier de stock
-    //
     private void initialiserStock(String nomFichier)
     {
         String[] lignes = Terminal.lireFichierTexte(nomFichier);
@@ -104,18 +108,31 @@ public class Site
         String[] lignes = Terminal.lireFichierTexte(nomFichier);
         for(String ligne : lignes){
             ArrayList<String> reference =new ArrayList<>();
-            System.out.println(ligne);
             String[] champs = ligne.split("[;]",4);
             int numero = Integer.parseInt(champs[0]);
             String date = champs[1];
             String client = champs[2];
             reference.add(champs[3]);
-            Commande c = new Commande(numero,
-                    date,
-                    client,
-                    reference
-            );
-            commandes.add(c);
+            boolean findClient = false;
+
+//            Parcours du tableau pour voir si un client est déjà dans la liste des commandes
+
+            for (Commande commande : commandes) {
+
+                if (commandes.get(commandes.indexOf(commande)).getClient().equalsIgnoreCase(champs[2])) {
+                    findClient = true;
+                    commande.getReferences().add(champs[3]);
+                }
+            }
+
+            if(findClient == false) {
+                Commande c = new Commande(numero,
+                        date,
+                        client,
+                        reference
+                );
+                commandes.add(c);
+            }
         }
     }
 }

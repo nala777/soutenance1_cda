@@ -24,10 +24,53 @@ public class Commande
     }
 
 
-    @Override
+//    @Override
+//
+//    public String toString()
+//    {
+//        return String.format("%-15s %-50s %3.2f   %3d",numero,date,client,references);
+//    }
 
-    public String toString()
-    {
-        return String.format("%-15s %-50s %3.2f   %3d",numero,date,client,references);
+
+    @Override
+    public String toString() {
+        return "Commande{" +
+                "numero=" + numero +
+                ", date='" + date + '\'' +
+                ", client='" + client + '\'' +
+                ", references=" + references +
+                '}';
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public ArrayList<String> getReferences() {
+        return references;
+    }
+
+    public void setReferences(ArrayList<String> references) {
+        this.references = references;
     }
 }
