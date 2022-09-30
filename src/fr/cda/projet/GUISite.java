@@ -28,6 +28,8 @@ public class GUISite implements FormulaireInt
         form.addText("NUM_COMMANDE","Numero de commande",true,"1");
         form.addButton("AFF_COMMANDE","Afficher");
         form.addLabel("");
+        form.addButton("AFF_LIVRAISONS","Livrer");
+        form.addButton("AFF_VENTES","Calculer les ventes");
 
         form.setPosition(400,0);
         form.addZoneText("RESULTATS","Resultats",
@@ -69,6 +71,21 @@ public class GUISite implements FormulaireInt
                 String res = site.listerCommande(num);
                 form.setValeurChamp("RESULTATS",res);
             }
+
+        // Affichage Livraison Commande
+        //
+        if(nomSubmit.equals("AFF_LIVRAISONS"))
+        {
+            String res = site.livrerCommandes();
+            form.setValeurChamp("RESULTATS",res);
+        }
+
+        // Calcul des ventes
+        //
+        if(nomSubmit.equals("AFF_VENTES"))
+        {
+
+        }
     }
 
 }

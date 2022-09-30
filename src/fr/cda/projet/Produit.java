@@ -11,7 +11,8 @@ public class Produit
     private String  reference;      // reference du produit
     private String  nom;            // nom du produit
     private double  prix;           // prix du produit
-    private int     quantite;       // quantité du produit
+    private int     quantite;       // quantitï¿½ du produit
+
 
     // Constructeur
     //
@@ -24,13 +25,15 @@ public class Produit
         this.nom = nom;
         this.prix = prix;
         this.quantite = quantite;
+
     }
 
     // Conversion en chaine
-    //
+    //TODO revoir affichage produit
     public String toString()
     {
-        return String.format("%-15s %-50s %3.2f   %3d",reference,nom,prix,quantite);
+
+        return String.format("%-15s\t %-50s\t %3.2f   %3d",reference,nom,prix,quantite);
     }
 
     public String getReference() {

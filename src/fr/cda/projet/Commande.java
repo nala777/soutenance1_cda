@@ -12,15 +12,18 @@ public class Commande
     private String  date;           // date de la commande. Au format JJ/MM/AAAA
     private String  client;         // nom du client
     private ArrayList<String> references; // les references des produits de la commande
+    private ArrayList<Integer> quantite; // quantité commandé
+    private boolean bLivrer;
 
 
-    //TODO vous devez coder le reste (constructeur, methodes ...)
-
-    public Commande(int numero, String date, String client, ArrayList<String> references) {
+    public Commande(int numero, String date, String client, ArrayList<String> references, ArrayList<Integer> quantite) {
         this.numero = numero;
         this.date = date;
         this.client = client;
         this.references = references;
+        this.quantite = quantite;
+        this.bLivrer = false;
+
     }
 
 
@@ -33,14 +36,26 @@ public class Commande
 
 
     @Override
+//    TODO revoir affichage commande seul
     public String toString() {
-        return "Commande{" +
-                "numero=" + numero +
-                ", date='" + date + '\'' +
-                ", client='" + client + '\'' +
-                ", references=" + references +
-                '}';
+        return  "Commande : " + numero +
+                "\n           Date : " + date +
+                "\n           Client : " + client +
+                "\n           References : \n" +
+                affichRefQuant() ;
+
     }
+
+    public String affichRefQuant() {
+        String res = "";
+        for(int i = 0;i<references.size();i++){
+           res+= "               "+references.get(i) + " Quantité : " + quantite.get(i) + "\n";
+        }
+        return res;
+    }
+
+
+
 
     public int getNumero() {
         return numero;
@@ -72,5 +87,21 @@ public class Commande
 
     public void setReferences(ArrayList<String> references) {
         this.references = references;
+    }
+
+    public ArrayList<Integer> getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(ArrayList<Integer> quantite) {
+        this.quantite = quantite;
+    }
+
+    public boolean isbLivrer() {
+        return bLivrer;
+    }
+
+    public void setbLivrer(boolean bLivrer) {
+        this.bLivrer = bLivrer;
     }
 }

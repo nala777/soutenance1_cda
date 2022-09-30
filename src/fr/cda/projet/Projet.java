@@ -21,17 +21,17 @@ public class Projet
 
         Site site = new Site();
 //        System.out.println(site.listerTousProduits());
-        System.out.println(site.listerToutesCommandes());
-        System.out.println();
-        System.out.println();
-        System.out.println();
+//        System.out.println(site.listerToutesCommandes());
+//        System.out.println();
+//        System.out.println();
+//        System.out.println();
 
 
-        System.out.println("Entrez le numéro de la commande à chercher : ");
-        int i = Terminal.lireInt();
+//        System.out.println("Entrez le numéro de la commande à chercher : ");
+//        int i = Terminal.lireInt();
+//
+//        System.out.println(site.listerCommande(i));
 
-        System.out.println(site.listerCommande(i));
-
-//        GUISite ihm = new GUISite(site);
+        GUISite ihm = new GUISite(site);
     }
 }
