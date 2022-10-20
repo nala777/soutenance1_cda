@@ -14,8 +14,9 @@ public class Site {
     private ArrayList<Produit> stock;       // Les produits du stock
     private ArrayList<Commande> commandes;  // Les bons de commande
 
-    // Constructeur
-    //
+    /** Constructeur
+     * 
+     */
     public Site() {
         stock = new ArrayList<>();
         commandes = new ArrayList<>();
@@ -28,11 +29,15 @@ public class Site {
         //  pour chaque ligne on cree une commande ou on ajoute une reference
         //  d'un produit a une commande existante.
         initialiserCommandes("data/Commandes.txt");
-        // AC AC
 
     }
 
     // Chargement du fichier de stock
+    /**
+     * Initialisation de la liste des produits à partir d'un fichier texte
+     * 
+     * @param nomFichier the name of the file
+     */
     private void initialiserStock(String nomFichier) {
         String[] lignes = Terminal.lireFichierTexte(nomFichier);
         for (String ligne : lignes) {
@@ -50,7 +55,11 @@ public class Site {
         }
     }
 
-    // Chargement du fichier commandes
+    /**
+     * Initialisation de la listes des commandes à partir d'un fichier texte
+     * 
+     * @param nomFichier
+     */
     private void initialiserCommandes(String nomFichier) {
         String[] lignes = Terminal.lireFichierTexte(nomFichier);
         for (String ligne : lignes) {
@@ -87,10 +96,12 @@ public class Site {
             }
         }
     }
-    // Methode qui retourne sous la forme d'une chaine de caractere
-    //  tous les produits du stock
-
-    //
+    
+    /**
+     * Méthode pour lister tous les produits
+     * 
+     * @return A string
+     */
     public String listerTousProduits() {
         String res = "";
         for (Produit prod : stock)
@@ -98,11 +109,12 @@ public class Site {
 
         return res;
     }
-    // Methode qui retourne sous la forme d'une chaine de caractere
-    //  toutes les commandes
 
-    //
-
+    /**
+     * Méthode pour lister toutes les commandes
+     * 
+     * @return A string
+     */
     public String listerToutesCommandes() {
         String res = "\n";
         for (Commande commande : commandes) {
@@ -115,11 +127,13 @@ public class Site {
 
         return res;
     }
-    // Methode qui retourne sous la forme d'une chaine de caractere
-    //  une commande
 
-    //
-
+    /**
+     * Méthode pour l'affichage d'une commande à partir d'un numéro de commande
+     * 
+     * @param numero the number of the order
+     * @return A string
+     */
     public String listerCommande(int numero) {
         String res = "La commande n'a pas été trouvé";
 
@@ -133,17 +147,27 @@ public class Site {
         return res;
     }
 
+    /**
+     * Cette méthode va permettre l'affichage des commandes non livrées et de voir les 
+     * produits manquant dans le stock . Pour les commandes livrées le stock sera décrémenter
+     * des produits livrés
+     * 
+     * 
+     * @return A string.
+     */
     public String livrerCommandes() {
         boolean livrer = true;
         boolean quantOk = true;
         int quantDispo = 0;
         String res = "Les commandes non livrées : \n=============================================\n\n";
         for (Commande commande : commandes) {
+            // Vérifie si la commande n'est pas déjà livrée
             if (!commande.getbLivrer()) {
                 String manque = "";
                 for (int i = 0; i < commande.getReferences().size(); i++) {
 
                     for (int j = 0; j < stock.size(); j++) {
+                        // Va comparer la référence de la commande avec celle en stock et vérifier que la quantité demandé est inferieur à celle du stock
                         if (commande.getReferences().get(i).equals(stock.get(j).getReference())) {
                             if (commande.getQuantite().get(i) > stock.get(j).getQuantite()) {
                                 livrer = false;
@@ -152,6 +176,7 @@ public class Site {
                             }
                         }
                     }
+                    // Si la quantité en stock n'est pas suffisante cela va ajouté au résultat la quantité manquante
                     if (quantOk == false) {
                         int quantManquante = commande.getQuantite().get(i) - quantDispo;
                         manque += "\n Il manque " + quantManquante + " " + commande.getReferences().get(i);
@@ -163,6 +188,7 @@ public class Site {
                 if (!livrer) {
                     res += commande.toString() + manque+"\n\n-----------------------------------------------------------------------------------------\n\n";
                 } else {
+                    // Dans le cas où la livraison est bonne va décrémenter le stock des quantités livrées et passé le statut de livraisons à true
                     decrementeStock(commande);
                     commande.setbLivrer(true);
                 }
@@ -173,6 +199,11 @@ public class Site {
     }
 
 
+    /**
+     * Méthode appelé lors de la livraisons pour décrémenter le stock 
+     * 
+     * @param c Commande
+     */
     public void decrementeStock(Commande c) {
         for (int i = 0; i < c.getReferences().size(); i++) {
             for (int j = 0; j < stock.size(); j++) {
@@ -183,6 +214,12 @@ public class Site {
         }
     }
 
+    /**
+     * Méthode qui va itéré sur les commande pour voir s'il y a une correspondance avec la commande recherché par son numéro
+     * 
+     * @param numero
+     * @return retourne la commande si trouvé
+     */
     public Commande modifierCommandes(int numero) {
         Commande trouve = null;
         for (Commande commande : commandes) {
@@ -194,25 +231,43 @@ public class Site {
     }
 
 
+    /**
+     * Méthode pour modifier les quantité de la commande
+     * 
+     * @param c commande
+     * @param quantite arraylist de quantite
+     */
     public void modifQuantite(Commande c,ArrayList quantite){
         c.setQuantite(quantite);
     }
 
+    /**
+     * Méthode qui va vérifier si une commande à été livrée et afficher les noms des différents produits livrés , la quantité demandée
+     * ainsi que son prix unitaire et affichera le total des ventes éffectuées
+     * 
+     * @return a string.
+     */
     public String afficherVentes(){
         double total = 0;
-        String res = "Total des ventes livrés : ";
+        String res = "";
         for(Commande commande : commandes){
+            // Va vérifier si une commande est livré
             if(commande.getbLivrer()){
+                res += "COMMANDE "+commande.getNumero()+"\n";
                 for(int i=0;i<commande.getReferences().size();i++){
+
                     for (int j = 0;j<stock.size();j++){
+                        // Va chercher dans le stock la référence correspondante à celui de la commande pour avoir le prix unitaire et son nom complet
                         if(commande.getReferences().get(i).equalsIgnoreCase(stock.get(j).getReference())){
                             total += stock.get(j).getPrix() * commande.getQuantite().get(i);
+                            res += "                      "+stock.get(j).getNom()+"  / Quantite : "+commande.getQuantite().get(i) + "  / Prix :  "+ stock.get(j).getPrix()+" euros \n";
                         }
                     }
                 }
+                res+="\n\n";
             }
         }
-        res+= total + " euros";
+        res+= "=========================\nSOMME   :   "+total + " euros";
         return res;
     }
 

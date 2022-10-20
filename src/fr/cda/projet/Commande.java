@@ -2,8 +2,10 @@ package fr.cda.projet;
 
 import java.util.*;
 
-// Classe de definition d'une commande
-//
+
+/**
+ * Classe de définition d'une commande.
+ */
 public class Commande
 {
     // Les caracteristiques d'une commande
@@ -16,6 +18,14 @@ public class Commande
     private boolean bLivrer; //commande livré
 
 
+    /** Constructeur
+     *
+     * @param numero
+     * @param date
+     * @param client
+     * @param references
+     * @param quantite
+     */
     public Commande(int numero, String date, String client, ArrayList<String> references, ArrayList<Integer> quantite) {
         this.numero = numero;
         this.date = date;
@@ -27,16 +37,10 @@ public class Commande
     }
 
 
-//    @Override
-//
-//    public String toString()
-//    {
-//        return String.format("%-15s %-50s %3.2f   %3d",numero,date,client,references);
-//    }
-
-
+    /**
+     * Override de la méthode toString pour l'affichage d'une commande
+     */
     @Override
-
     public String toString() {
         return  "Commande : " + numero +
                 "\n           Date : " + date +
@@ -46,6 +50,11 @@ public class Commande
 
     }
 
+    /**
+     * Affichage des références et quantités
+     * 
+     * @return 
+     */
     public String affichRefQuant() {
         String res = "";
         for(int i = 0;i<references.size();i++){
@@ -55,7 +64,10 @@ public class Commande
     }
 
 
-
+    /** Getters et setters
+     *
+     * @return
+     */
 
     public int getNumero() {
         return numero;

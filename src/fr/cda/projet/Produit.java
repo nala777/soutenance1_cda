@@ -11,11 +11,16 @@ public class Produit
     private String  reference;      // reference du produit
     private String  nom;            // nom du produit
     private double  prix;           // prix du produit
-    private int     quantite;       // quantit� du produit
+    private int     quantite;       // quantité du produit
 
 
-    // Constructeur
-    //
+   /** Constructeur
+     *
+     * @param reference
+     * @param nom
+     * @param prix
+     * @param quantite
+     */
     public Produit(String reference,
                    String nom,
                    double prix,
@@ -28,14 +33,20 @@ public class Produit
 
     }
 
-    // Conversion en chaine
-    //TODO revoir affichage produit
+    /**
+     * La méthod retourne une chaine de caractère pour un produit
+     * 
+     * @return  reference, nom, prix et quantité d'un produit
+     */
     public String toString()
     {
 
         return String.format("%-15s\t %-50s\t %3.2f   %3d",reference,nom,prix,quantite);
     }
 
+    /** Getter et Setter
+     * 
+     */
     public String getReference() {
         return reference;
     }

@@ -9,13 +9,18 @@ public class GUISite implements FormulaireInt
 {
     private Site site;  // Le site
 
-    // Constructeur
-    //
+    /** Constructeur
+     *
+     * @param site
+     */
+    
     public GUISite(Site site)
     {
         this.site = site;
 
-        // Creation du formulaire
+        /** Creation du formulaire
+         *  
+         */ 
         Formulaire form = new Formulaire("Site de vente",this,1100,730);
         
         //  Creation des elements de l'IHM
@@ -44,8 +49,12 @@ public class GUISite implements FormulaireInt
         form.afficher();
     }
 
-    // Methode appellee quand on clique dans un bouton
-    //
+     /** Methode appellee quand on clique dans un bouton
+     *
+     * @param form Le formulaire dans lequel se trouve le bouton
+     * @param nomSubmit Le nom du bouton qui a été utilisé.
+     */
+    
     public void submit(Formulaire form,String nomSubmit)
     {
 
