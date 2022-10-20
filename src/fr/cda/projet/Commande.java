@@ -13,7 +13,7 @@ public class Commande
     private String  client;         // nom du client
     private ArrayList<String> references; // les references des produits de la commande
     private ArrayList<Integer> quantite; // quantité commandé
-    private boolean bLivrer;
+    private boolean bLivrer; //commande livré
 
 
     public Commande(int numero, String date, String client, ArrayList<String> references, ArrayList<Integer> quantite) {
@@ -36,7 +36,7 @@ public class Commande
 
 
     @Override
-//    TODO revoir affichage commande seul
+
     public String toString() {
         return  "Commande : " + numero +
                 "\n           Date : " + date +
@@ -97,7 +97,7 @@ public class Commande
         this.quantite = quantite;
     }
 
-    public boolean isbLivrer() {
+    public boolean getbLivrer() {
         return bLivrer;
     }
 
